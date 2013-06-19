@@ -28,6 +28,16 @@ class ObjectStorageTest extends TestCase
         $this->assertFalse($this->store->contains($two));
     }
 
+    public function testAddAllInvalidArgument()
+    {
+        $this->setExpectedException(
+            'InvalidArgumentException',
+            'The $storage argument must be an instance of SplObjectStorage.'
+        );
+
+        $this->store->addAll(123);
+    }
+
     public function testAttach()
     {
         $one = new ExampleObject();
