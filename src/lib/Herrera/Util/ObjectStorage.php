@@ -2,6 +2,7 @@
 
 namespace Herrera\Util;
 
+use InvalidArgumentException;
 use SplObjectStorage;
 use UnexpectedValueException;
 
@@ -20,8 +21,14 @@ abstract class ObjectStorage extends SplObjectStorage
     /**
      * @override
      */
-    public function addAll(SplObjectStorage $storage)
+    public function addAll($storage)
     {
+        if (!($storage instanceof SplObjectStorage)) {
+            throw new InvalidArgumentException(
+                'The $storage argument must be an instance of SplObjectStorage.'
+            );
+        }
+
         foreach ($storage as $object) {
             if ($this->isSupported($object)) {
                 $this[$object] = $storage[$object];
